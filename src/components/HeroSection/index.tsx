@@ -48,23 +48,22 @@ const HeroSection: React.FC<IProps> = ({ foodData, isLoading }) => {
             </div>
           );
         })}
-      </div>
-
+      </div> 
+      
         {/* Skeleton */}
-        {isLoading ? (
+        {isLoading && (
           <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-4 mt-8 cursor-pointer">
             <CardSkeleton/>
             <CardSkeleton/>
             <CardSkeleton/>
             <CardSkeleton/>
-          </div>) :
-          <>
-          {/* Pagination */}
-        <   Pagination isOpen={isOpen} foodData={foodData} itemsPerPage={itemsPerPage} setIsOpen={setIsOpen} setCurrentPage={setCurrentPage}/>
-         </>
+          </div>)
         }
 
-      {/* Food Details Modal */}
+        {/* Pagination */}
+       {currentItems.length > 0 && <Pagination isOpen={isOpen} foodData={foodData} itemsPerPage={itemsPerPage} setIsOpen={setIsOpen} setCurrentPage={setCurrentPage}/>}
+      {
+      /* Food Details Modal */}
       <div className="relative">
         {open ? (
           <Modal foodDetails={foodDetails} setOpen={setOpen}/>
