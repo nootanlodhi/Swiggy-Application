@@ -1,4 +1,4 @@
-import FoodCategory from "../../components/HomeDetails/FoodCategory"
+import FoodCategory from "../../components/HomeDetails/AreaFoods"
 import FoodDelivery from "../../components/HomeDetails/FoodDelivery"
 
 const Home = () => {
