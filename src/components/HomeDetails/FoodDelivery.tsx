@@ -11,9 +11,11 @@ const FoodDelivery = () => {
   const [area , setArea] = useState<IArea[]>([]);
   const [selectArea , setSelectArea] = useState<string>("Indian");
   const [foodData , setFoodData] = useState<IAllFood[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Initial loading state set to true
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   
   const fetchFoodList = async(area:string, isBoolean: boolean) =>{
+    setIsLoading(true)
     try {
       const resp = await fetchAllIndianFood(area);
       if(resp.status === 200){
@@ -23,9 +25,11 @@ const FoodDelivery = () => {
     } catch (error) {
       console.error(error);
     }
+    setIsLoading(false)
   }
 
   const AllAreaList = async() =>{
+    setIsLoading(true)
     try {
       const resp = await fetchAllArea();
       console.log(resp)
@@ -35,9 +39,12 @@ const FoodDelivery = () => {
     } catch (error) {
       console.error(error)
     }
+    setIsLoading(false)
   }
 
   useEffect(()=>{
+    // Reset loading state on initial load or page refresh
+    setIsLoading(true)
     fetchFoodList("Indian", false);
     AllAreaList();
   },[]);
@@ -120,7 +127,7 @@ const FoodDelivery = () => {
         <FilterButtons>Rs. 300-Rs. 500</FilterButtons>
         <FilterButtons>Less Then Rs 300</FilterButtons>
        </div>
-       <HeroSection foodData={foodData}/>
+       <HeroSection foodData={foodData} isLoading={isLoading}/>
     </div>
   )
 }
