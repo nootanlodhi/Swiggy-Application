@@ -11,3 +11,11 @@ export const fetchFoodDetailsData = async(id:string) =>{
 export const fetchAllArea = async() =>{
     return await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
 }
+
+export const fetchAllCategory = async() =>{
+    return await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
+}
+
+export const fetchFoodCategoryData = async(selectCategory:string) =>{
+    return await axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c="+selectCategory);
+}
