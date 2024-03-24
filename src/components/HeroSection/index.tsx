@@ -4,7 +4,6 @@ import Modal from '../Modal';
 
 import { fetchFoodDetailsData } from '../../services/services';
 import Cards from '../Cards';
-import Pagination from '../Pagination';
 import CardSkeleton from '../CardSkeleton';
 
 interface IProps {
@@ -15,9 +14,6 @@ interface IProps {
 const HeroSection: React.FC<IProps> = ({ foodData, isLoading }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [foodDetails, setFoodDetails] = useState<IFoodDetails[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isOpen, setIsOpen] = useState(false);
-  const itemsPerPage: number = 8;
 
   // Fetching Food Details Info
   const fetchFoodDetails = async (id: string) => {
@@ -33,15 +29,15 @@ const HeroSection: React.FC<IProps> = ({ foodData, isLoading }) => {
   };
 
   // Pagination Logic
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = foodData.slice(indexOfFirstItem, indexOfLastItem);
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentItems = foodData.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <>
       {/* Food Cards */}
       <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-4 mt-8 cursor-pointer">
-        {currentItems.map((item, index) => {
+        {foodData.map((item, index) => {
           return (
             <div key={index} onClick={() => fetchFoodDetails(item.idMeal)} className='hover:scale-90 duration-300'>
               <Cards currentItems={item}/>
@@ -61,7 +57,7 @@ const HeroSection: React.FC<IProps> = ({ foodData, isLoading }) => {
         }
 
         {/* Pagination */}
-       {currentItems.length > 0 && <Pagination isOpen={isOpen} foodData={foodData} itemsPerPage={itemsPerPage} setIsOpen={setIsOpen} setCurrentPage={setCurrentPage}/>}
+       {/* {currentItems.length > 0 && <Pagination isOpen={isOpen} foodData={foodData} itemsPerPage={itemsPerPage} setIsOpen={setIsOpen} setCurrentPage={setCurrentPage}/>} */}
       {
       /* Food Details Modal */}
       <div className="relative">

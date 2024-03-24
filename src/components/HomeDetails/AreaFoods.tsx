@@ -5,13 +5,25 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { restaurent } from '../../data/restaurentSchema';
 
 const FoodCategory: React.FC = () => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRefOne = useRef<HTMLDivElement>(null);
+  const scrollContainerRefTwo = useRef<HTMLDivElement>(null);
   
-  const handleScroll = (scrollOffset: number) => {
-    console.log(scrollContainerRef.current)
-    if (scrollContainerRef.current) {
-      const { scrollLeft } = scrollContainerRef.current;
-      scrollContainerRef.current.scrollTo({
+  const handleScrollOne = (scrollOffset: number) => {
+    console.log(scrollContainerRefOne.current)
+    if (scrollContainerRefOne.current) {
+      const { scrollLeft } = scrollContainerRefOne.current;
+      scrollContainerRefOne.current.scrollTo({
+        left: scrollLeft + scrollOffset,
+        behavior: 'smooth', // Smooth scrolling behavior
+      });
+    }
+  };
+
+  const handleScrollTwo = (scrollOffset: number) => {
+    console.log(scrollContainerRefTwo.current)
+    if (scrollContainerRefTwo.current) {
+      const { scrollLeft } = scrollContainerRefTwo.current;
+      scrollContainerRefTwo.current.scrollTo({
         left: scrollLeft + scrollOffset,
         behavior: 'smooth', // Smooth scrolling behavior
       });
@@ -23,11 +35,11 @@ const FoodCategory: React.FC = () => {
       <div className='flex justify-between items-center'>
         <h2 className="sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl xxl:text-3xl dark:text-white font-bold">What's on your mind?</h2>
         <div className='m-0 p-0'>
-          <button className='bg-gray m-2 p-2 rounded-full' onClick={() => handleScroll(-500)}><IoArrowBackSharp/></button>
-          <button className='bg-gray p-2 rounded-full' onClick={() => handleScroll(500)}><IoArrowForward/></button>
+          <button className='bg-gray m-2 p-2 rounded-full' onClick={() => handleScrollOne(-500)}><IoArrowBackSharp/></button>
+          <button className='bg-gray p-2 rounded-full' onClick={() => handleScrollOne(500)}><IoArrowForward/></button>
         </div>
       </div>
-      <div className='flex gap-4 w-full overflow-x-scroll no-scrollbar mt-5' ref={scrollContainerRef} style={{ scrollBehavior: 'smooth' }}>
+      <div className='flex gap-4 w-full overflow-x-scroll no-scrollbar mt-5' ref={scrollContainerRefOne} style={{ scrollBehavior: 'smooth' }}>
         {data.map((item, index) => (
           <img key={index} className='img-size' src={item.url} alt={`Food ${index}`} />
         ))}
@@ -36,11 +48,11 @@ const FoodCategory: React.FC = () => {
       <div className='flex justify-between items-center'>
         <h2 className="sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl xxl:text-3xl dark:text-white font-bold">Top restaurant chains in Pune</h2>
         <div className='m-0 p-0'>
-          <button className='bg-gray m-2 p-2 rounded-full' onClick={() => handleScroll(-500)}><IoArrowBackSharp/></button>
-          <button className='bg-gray p-2 rounded-full' onClick={() => handleScroll(500)}><IoArrowForward/></button>
+          <button className='bg-gray m-2 p-2 rounded-full' onClick={() => handleScrollTwo(-500)}><IoArrowBackSharp/></button>
+          <button className='bg-gray p-2 rounded-full' onClick={() => handleScrollTwo(500)}><IoArrowForward/></button>
         </div>
       </div>
-      <div className='flex gap-10 w-full overflow-x-scroll no-scrollbar mt-5' ref={scrollContainerRef} style={{ scrollBehavior: 'smooth' }}>
+      <div className='flex gap-10 w-full overflow-x-scroll no-scrollbar mt-5' ref={scrollContainerRefTwo} style={{ scrollBehavior: 'smooth' }}>
         {restaurent.map((item, index) => (
           <div key={index} className='hover:scale-90 duration-300 cursor-pointer'>
             <div className="rounded-md w-64 h-48">
