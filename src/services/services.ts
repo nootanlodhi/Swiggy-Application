@@ -19,3 +19,11 @@ export const fetchAllCategory = async() =>{
 export const fetchFoodCategoryData = async(selectCategory:string) =>{
     return await axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c="+selectCategory);
 }
+
+export const fetchIngredientList = async() =>{
+    return await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?i=list")
+}
+
+export const fetchIngredientFood = async(selectIngredient:string) =>{
+    return await axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?i="+selectIngredient);
+}

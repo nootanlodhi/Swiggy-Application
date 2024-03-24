@@ -24,7 +24,7 @@ const FoodDelivery = () => {
     isIngredient : false
   })
   
-  const fetchFoodList = async(area:string, isBoolean: boolean) =>{
+  const fetchAreaFoodData = async(area:string, isBoolean: boolean) =>{
     setIsLoading && setIsLoading(true)
     try {
       const resp = await fetchAllIndianFood(area);
@@ -38,7 +38,7 @@ const FoodDelivery = () => {
     setIsLoading && setIsLoading(false)
   }
 
-  const fetchFoodCategoryList = async(category:string, isBoolean: boolean) =>{
+  const fetchFoodCategory = async(category:string, isBoolean: boolean) =>{
     setIsLoading && setIsLoading(true)
     try {
       const resp = await fetchFoodCategoryData(category);
@@ -52,7 +52,7 @@ const FoodDelivery = () => {
     setIsLoading && setIsLoading(false)
   }
 
-  const AllCategoryList = async() =>{
+  const fetchCategoryList = async() =>{
     try {
       const resp = await fetchAllCategory();
       if(resp.status === 200){
@@ -67,34 +67,32 @@ const FoodDelivery = () => {
     setIsLoading && setIsLoading(true)
     try {
       const resp = await fetchAllArea();
-      console.log(resp)
       if(resp.status === 200){
         setArea(resp.data.meals)
       }
     } catch (error) {
       console.error(error)
     }
-    setIsLoading && setIsLoading(false)
   }
 
   useEffect(()=>{
     // Reset loading state on initial load or page refresh
     setIsLoading && setIsLoading(true)
-    fetchFoodList("Indian", false);
+    fetchAreaFoodData("Indian", false);
     AllAreaList();
-    AllCategoryList();
+    fetchCategoryList();
   },[]);
 
   const handleDropdown = (area:string) =>{
     if(area){
-      fetchFoodList(area, false)
+      fetchAreaFoodData(area, false)
       setSelectFilter({...selectFilter, selectArea: area, selectCategory:"None"})
     }
   }
 
   const handleCategory = (category:string) =>{
     if(category){
-      fetchFoodCategoryList(category, false)
+      fetchFoodCategory(category, false)
       setSelectFilter({...selectFilter, selectCategory: category, selectArea:"None"})
     }
   }
@@ -151,7 +149,7 @@ const FoodDelivery = () => {
                   })
                 }
                 <div className='border-solid border-t-2 border-gray p-2 text-center'>
-                  <button className='text-red' onClick={()=>fetchFoodList(selectFilter.selectArea, false)}>Apply</button>
+                  <button className='text-red' onClick={()=>fetchAreaFoodData(selectFilter.selectArea, false)}>Apply</button>
                 </div>
               </ul>
             </div>
@@ -188,12 +186,13 @@ const FoodDelivery = () => {
                   })
                 }
                 <div className='border-solid border-t-2 border-gray p-2 text-center'>
-                  <button className='text-red' onClick={()=>fetchFoodCategoryList(selectFilter.selectCategory, false)}>Apply</button>
+                  <button className='text-red' onClick={()=>fetchFoodCategory(selectFilter.selectCategory, false)}>Apply</button>
                 </div>
               </ul>
             </div>
           )}
         </div>
+
         <FilterButtons toggleSortOrder={toggleSortOrder}>Sort By {sortOrder === 'asc' ? <TbSortAscendingLetters/> : <TbSortDescendingLetters/>}</FilterButtons>
         <FilterButtons>Fast Delivery</FilterButtons>
         <FilterButtons>New On Swiggy</FilterButtons>
