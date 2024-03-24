@@ -25,7 +25,7 @@ export default {
       'gray-light': '#d3dce6',
       'black': "#71717a",
       'black-dark': "#020617",
-      'white': "#fafafa",
+      'white': "#ffffff",
       'red': "#dc2626"
     },
     fontFamily: {
