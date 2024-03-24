@@ -43,7 +43,7 @@ const HeroSection: React.FC<IProps> = ({ foodData, isLoading }) => {
       <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-4 mt-8 cursor-pointer">
         {currentItems.map((item, index) => {
           return (
-            <div key={index} onClick={() => fetchFoodDetails(item.idMeal)}>
+            <div key={index} onClick={() => fetchFoodDetails(item.idMeal)} className='hover:scale-90 duration-300'>
               <Cards currentItems={item}/>
             </div>
           );

@@ -16,8 +16,8 @@ const Cards: React.FC<IProps> = ({ currentItems }) => {
   return (
     <>
       {/* Food Cards */}
-      <div className="rounded-md w-full h-60">
-        <img className="w-full h-full object-cover rounded-md" src={currentItems.strMealThumb} alt={currentItems.strMeal} />
+      <div className="rounded-2xl w-full h-60">
+        <img className="w-full h-full object-cover rounded-2xl" src={currentItems.strMealThumb} alt={currentItems.strMeal} />
       </div>
       <div className="px-1 py-2">
         <h2 className="text-xl font-bold text-[#4e4e4e]">{currentItems.strMeal}</h2>
