@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
-import { fetchAllArea, fetchAllIndianFood } from '../../services/services';
-import { IArea, IContextProps } from '../../Interface/Interface';
+import { fetchAllArea, fetchAllCategory, fetchAllIndianFood, fetchFoodCategoryData } from '../../services/services';
+import { IArea, ICategory, IContextProps } from '../../Interface/Interface';
 import { TbSortAscendingLetters } from "react-icons/tb";
 import { TbSortDescendingLetters } from "react-icons/tb";
 import HeroSection from '../HeroSection';
@@ -8,11 +8,21 @@ import FilterButtons from '../FilterButtons';
 import { CreateContext } from '../../App';
 
 const FoodDelivery = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [area , setArea] = useState<IArea[]>([]);
-  const [selectArea , setSelectArea] = useState<string>("Indian");
+  const [category , setCategory] = useState<ICategory[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const {foodData, setFoodData , setIsLoading} = useContext<IContextProps>(CreateContext)
+  const [selectFilter , setSelectFilter] = useState({
+    selectArea:"Indian",
+    selectCategory: "None",
+    selectIngredient: ""
+  })
+
+  const [isOpen , setIsOpen] = useState({
+    isAreaOpen: false,
+    isCategoryOpen: false,
+    isIngredient : false
+  })
   
   const fetchFoodList = async(area:string, isBoolean: boolean) =>{
     setIsLoading && setIsLoading(true)
@@ -20,12 +30,37 @@ const FoodDelivery = () => {
       const resp = await fetchAllIndianFood(area);
       if(resp.status === 200){
         setFoodData && setFoodData(resp.data.meals)
-        setIsOpen(isBoolean);
+        setIsOpen({...isOpen, isAreaOpen:isBoolean});
       }
     } catch (error) {
       console.error(error);
     }
     setIsLoading && setIsLoading(false)
+  }
+
+  const fetchFoodCategoryList = async(category:string, isBoolean: boolean) =>{
+    setIsLoading && setIsLoading(true)
+    try {
+      const resp = await fetchFoodCategoryData(category);
+      if(resp.status === 200){
+        setFoodData && setFoodData(resp.data.meals)
+        setIsOpen({...isOpen, isCategoryOpen:isBoolean});
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading && setIsLoading(false)
+  }
+
+  const AllCategoryList = async() =>{
+    try {
+      const resp = await fetchAllCategory();
+      if(resp.status === 200){
+        setCategory(resp.data.meals)
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const AllAreaList = async() =>{
@@ -47,16 +82,20 @@ const FoodDelivery = () => {
     setIsLoading && setIsLoading(true)
     fetchFoodList("Indian", false);
     AllAreaList();
+    AllCategoryList();
   },[]);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleDropdown = (area:string) =>{
     if(area){
       fetchFoodList(area, false)
-      setSelectArea(area)
+      setSelectFilter({...selectFilter, selectArea: area, selectCategory:"None"})
+    }
+  }
+
+  const handleCategory = (category:string) =>{
+    if(category){
+      fetchFoodCategoryList(category, false)
+      setSelectFilter({...selectFilter, selectCategory: category, selectArea:"None"})
     }
   }
 
@@ -77,7 +116,6 @@ const FoodDelivery = () => {
     sortFoodData(newOrder);
   }
 
-
   return (
     <div className='mt-5 relative'>
        <h2 className="sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl xxl:text-3xl dark:text-white font-bold mt-5">Restaurants with online food delivery in Pune</h2>
@@ -86,24 +124,24 @@ const FoodDelivery = () => {
          <div className="inline-block text-left">
            <button
               id="dropdownRadioButton"
-              onClick={toggleDropdown}
+              onClick={()=>setIsOpen({...isOpen, isAreaOpen: !isOpen.isAreaOpen, isCategoryOpen: false})}
               className="w-max flex justify-center items-center gap-2 text-gray-extra-dark border border-[#d4d4d4] shadow-[#d4d4d4 0px 2px 12px] bg-[rgb(255, 255, 255)] rounded-full px-4 py-2 text-sm"
               type="button"
             >
-              Filter By Area({selectArea})
-              <svg className={`w-2.5 h-2.5 ms-3 transform ${isOpen ? 'rotate-180' : 'rotate-0'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              Filter By Area
+              <svg className={`w-2.5 h-2.5 ms-3 transform ${isOpen.isAreaOpen ? 'rotate-180' : 'rotate-0'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
               </svg>
           </button>
-          {isOpen && (
+          {isOpen.isAreaOpen && (
             <div id="dropdownDefaultRadio" className="z-10 absolute mt-1 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-              <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-200 overflow-y-scroll h-40" aria-labelledby="dropdownRadioButton">
+              <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-200 overflow-y-scroll no-scrollbar h-40" aria-labelledby="dropdownRadioButton">
                 {
-                  area && area.map((item, index)=>{
+                  area && area.map((item:IArea, index:number)=>{
                     return(
                       <li key={index} className='hover:bg-gray w-full px-3'>
                         <div className="flex items-center">
-                          <input checked={item.strArea === selectArea ? true : false} id="default-radio-1" type="radio" value={item.strArea} onChange={(e)=>handleDropdown(e.target.value)} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"/>
+                          <input checked={item.strArea === selectFilter.selectArea ? true : false} id="default-radio-1" type="radio" value={item.strArea} onChange={(e)=>handleDropdown(e.target.value)} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"/>
                           <label htmlFor="default-radio-1" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             {item.strArea}
                           </label>
@@ -113,7 +151,44 @@ const FoodDelivery = () => {
                   })
                 }
                 <div className='border-solid border-t-2 border-gray p-2 text-center'>
-                  <button className='text-red' onClick={()=>fetchFoodList(selectArea, false)}>Apply</button>
+                  <button className='text-red' onClick={()=>fetchFoodList(selectFilter.selectArea, false)}>Apply</button>
+                </div>
+              </ul>
+            </div>
+          )}
+        </div>
+        {/* Filter By Category Dropdown */}
+        <div className="inline-block text-left">
+           <button
+              id="dropdownRadioButton"
+              onClick={()=>setIsOpen({...isOpen, isCategoryOpen: !isOpen.isCategoryOpen, isAreaOpen: false})}
+              className="w-max flex justify-center items-center gap-2 text-gray-extra-dark border border-[#d4d4d4] shadow-[#d4d4d4 0px 2px 12px] bg-[rgb(255, 255, 255)] rounded-full px-4 py-2 text-sm"
+              type="button"
+            >
+              Filter By Category
+              <svg className={`w-2.5 h-2.5 ms-3 transform ${isOpen.isCategoryOpen ? 'rotate-180' : 'rotate-0'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+              </svg>
+          </button>
+          {isOpen.isCategoryOpen && (
+            <div id="dropdownDefaultRadio" className="z-10 absolute mt-1 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+              <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-200 overflow-y-scroll no-scrollbar h-40" aria-labelledby="dropdownRadioButton">
+                {
+                  category && category.map((item:ICategory, index:number)=>{
+                    return(
+                      <li key={index} className='hover:bg-gray w-full px-3'>
+                        <div className="flex items-center">
+                          <input checked={item.strCategory === selectFilter.selectCategory ? true : false} id="default-radio-1" type="radio" value={item.strCategory} onChange={(e)=>handleCategory(e.target.value)} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"/>
+                          <label htmlFor="default-radio-1" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {item.strCategory}
+                          </label>
+                        </div>
+                      </li>
+                    )
+                  })
+                }
+                <div className='border-solid border-t-2 border-gray p-2 text-center'>
+                  <button className='text-red' onClick={()=>fetchFoodCategoryList(selectFilter.selectCategory, false)}>Apply</button>
                 </div>
               </ul>
             </div>
