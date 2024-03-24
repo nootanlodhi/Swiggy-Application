@@ -4,6 +4,13 @@ export interface IAllFood {
     strMealThumb: string
 }
 
+export interface IContextProps {
+    foodData?: IAllFood[],
+    isLoading?: boolean,
+    setFoodData?: (foodData:IAllFood)=>void,
+    setIsLoading?: (isLoading: boolean) => void
+}
+
 export type IFoodDetails = {
     strArea: string,
     strCategory: string,

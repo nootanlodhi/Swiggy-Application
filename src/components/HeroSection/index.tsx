@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-import { IAllFood, IFoodDetails } from '../../Interface/Interface';
+import React, { useContext, useState } from 'react';
+import { IAllFood, IContextProps, IFoodDetails } from '../../Interface/Interface';
 import Modal from '../Modal';
 
 import { fetchFoodDetailsData } from '../../services/services';
 import Cards from '../Cards';
 import CardSkeleton from '../CardSkeleton';
+import { CreateContext } from '../../App';
 
-interface IProps {
-  foodData: IAllFood[];
-  isLoading: boolean;
-}
-
-const HeroSection: React.FC<IProps> = ({ foodData, isLoading }) => {
+const HeroSection: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [foodDetails, setFoodDetails] = useState<IFoodDetails[]>([]);
+  const {foodData, isLoading} = useContext<IContextProps>(CreateContext);
 
   // Fetching Food Details Info
   const fetchFoodDetails = async (id: string) => {
@@ -37,7 +34,7 @@ const HeroSection: React.FC<IProps> = ({ foodData, isLoading }) => {
     <>
       {/* Food Cards */}
       <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-4 mt-8 cursor-pointer">
-        {foodData.map((item, index) => {
+        {foodData && foodData.map((item:IAllFood, index: number) => {
           return (
             <div key={index} onClick={() => fetchFoodDetails(item.idMeal)} className='hover:scale-90 duration-300'>
               <Cards currentItems={item}/>

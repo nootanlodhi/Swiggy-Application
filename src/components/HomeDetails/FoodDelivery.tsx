@@ -1,35 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { fetchAllArea, fetchAllIndianFood } from '../../services/services';
-import { IAllFood, IArea } from '../../Interface/Interface';
+import { IArea, IContextProps } from '../../Interface/Interface';
 import { TbSortAscendingLetters } from "react-icons/tb";
 import { TbSortDescendingLetters } from "react-icons/tb";
 import HeroSection from '../HeroSection';
 import FilterButtons from '../FilterButtons';
+import { CreateContext } from '../../App';
 
 const FoodDelivery = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [area , setArea] = useState<IArea[]>([]);
   const [selectArea , setSelectArea] = useState<string>("Indian");
-  const [foodData , setFoodData] = useState<IAllFood[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Initial loading state set to true
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const {foodData, setFoodData , setIsLoading} = useContext<IContextProps>(CreateContext)
   
   const fetchFoodList = async(area:string, isBoolean: boolean) =>{
-    setIsLoading(true)
+    setIsLoading && setIsLoading(true)
     try {
       const resp = await fetchAllIndianFood(area);
       if(resp.status === 200){
-        setFoodData(resp.data.meals)
+        setFoodData && setFoodData(resp.data.meals)
         setIsOpen(isBoolean);
       }
     } catch (error) {
       console.error(error);
     }
-    setIsLoading(false)
+    setIsLoading && setIsLoading(false)
   }
 
   const AllAreaList = async() =>{
-    setIsLoading(true)
+    setIsLoading && setIsLoading(true)
     try {
       const resp = await fetchAllArea();
       console.log(resp)
@@ -39,12 +39,12 @@ const FoodDelivery = () => {
     } catch (error) {
       console.error(error)
     }
-    setIsLoading(false)
+    setIsLoading && setIsLoading(false)
   }
 
   useEffect(()=>{
     // Reset loading state on initial load or page refresh
-    setIsLoading(true)
+    setIsLoading && setIsLoading(true)
     fetchFoodList("Indian", false);
     AllAreaList();
   },[]);
@@ -55,6 +55,7 @@ const FoodDelivery = () => {
 
   const handleDropdown = (area:string) =>{
     if(area){
+      fetchFoodList(area, false)
       setSelectArea(area)
     }
   }
@@ -67,7 +68,7 @@ const FoodDelivery = () => {
         return b.strMeal.localeCompare(a.strMeal);
       }
     });
-    setFoodData(sortedFoodData);
+    setFoodData && setFoodData(sortedFoodData);
   }
 
   const toggleSortOrder = () => {
@@ -127,7 +128,7 @@ const FoodDelivery = () => {
         <FilterButtons>Rs. 300-Rs. 500</FilterButtons>
         <FilterButtons>Less Then Rs 300</FilterButtons>
        </div>
-       <HeroSection foodData={foodData} isLoading={isLoading}/>
+       <HeroSection />
     </div>
   )
 }
