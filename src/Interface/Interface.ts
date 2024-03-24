@@ -24,3 +24,7 @@ export type IFoodDetails = {
 export interface IArea{
     strArea: string
 }
+
+export interface ICategory{
+    strCategory: string
+}
