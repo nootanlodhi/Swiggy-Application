@@ -81,9 +81,9 @@ const FoodDetails = () => {
                       })
                     }
                   </div>
-                  <div className='flex mt-3 justify-between w-full'>
-                    <Link className='flex gap-2 items-center text-xl px-5 py-1 border border-gray rounded-full hover:bg-orange hover:text-white' to={item.strYoutube} target='_blank'> Play on <img className='w-12 rounded-full' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlxiiJrfJOY6Pds_vU7Qc8gRefJiMWoqW0H4KxbvdQVvFb2RpOIkrxE0fjsq8YUkUvtQE&usqp=CAU'/></Link>
-                    <button className='bg-white text-xl px-7 border border-gray rounded-full hover:bg-orange hover:text-white'>Add to cart</button>
+                  <div className='sm:flex mt-3 justify-between w-full'>
+                    <Link className='flex justify-between gap-2 items-center text-xl px-5 border border-gray rounded-full hover:bg-orange hover:text-white' to={item.strYoutube} target='_blank'> Play on <img className='w-12 rounded-full' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlxiiJrfJOY6Pds_vU7Qc8gRefJiMWoqW0H4KxbvdQVvFb2RpOIkrxE0fjsq8YUkUvtQE&usqp=CAU'/></Link>
+                    <button className='xs:w-full sm:w-auto bg-white text-xl px-7 py-2 my-2 border border-gray rounded-full hover:bg-orange hover:text-white'>Add to cart</button>
                   </div>
                 </div>
               </div>
