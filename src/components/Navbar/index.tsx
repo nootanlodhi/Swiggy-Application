@@ -12,7 +12,7 @@ const Navbar = () => {
     <nav className="bg-white w-full py-4 flex flex-col lg:flex-row justify-between xs:px-5 sm:px-10 md:px-10 lg:px-30 xl:px-50 xxl:px-64 px-10">
       <img className="w-40" src={Logo}/>
       <div className="flex gap-10">
-        <NavLink className="flex items-center gap-1 hover:text-orange" to='/'>
+        <NavLink className="flex items-center gap-1 hover:text-orange" to='/search-food'>
           <IoSearchOutline/><p>Search</p>
         </NavLink>
         <NavLink className="flex items-center gap-1 hover:text-orange" to='/'>

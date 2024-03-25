@@ -27,3 +27,11 @@ export const fetchIngredientList = async() =>{
 export const fetchIngredientFood = async(selectIngredient:string) =>{
     return await axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?i="+selectIngredient);
 }
+
+export const fetchSearchByLetter = async(letter:string) =>{
+    return await axios.get("https://www.themealdb.com/api/json/v1/1/search.php?f=" + letter);
+}
+
+export const fetchSearchByName = async(letter:string) =>{
+    return await axios.get("https://www.themealdb.com/api/json/v1/1/search.php?s=" + letter);
+}

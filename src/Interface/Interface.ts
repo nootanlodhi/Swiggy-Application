@@ -28,3 +28,8 @@ export interface IArea{
 export interface ICategory{
     strCategory: string
 }
+
+export interface ISearchData{
+    strMealThumb: string,
+    strMeal: string
+}

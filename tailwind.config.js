@@ -22,7 +22,7 @@ export default {
       'gray-dark': '#737373',
       'gray-extra-dark': '#27272a',
       'gray': '#e4e4e7',
-      'gray-light': '#d3dce6',
+      'gray-light': '#d4d4d4',
       'black': "#71717a",
       'black-dark': "#020617",
       'white': "#ffffff",

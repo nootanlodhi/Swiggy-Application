@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { createContext, useState } from "react";
 import { IAllFood } from "./Interface/Interface";
 import BottomNavigation from "./components/Navbar/BottomNavigation";
+import SearchFood from "./pages/SearchFood";
 
 export const CreateContext = createContext({});
 
@@ -18,6 +19,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
+          <Route path="/search-food" element={<SearchFood/>}/>
         </Routes>
         <BottomNavigation/>
         <Footer/>
