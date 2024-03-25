@@ -21,7 +21,7 @@ const Cart = () => {
           </div>
            : 
           <div className="w-full flex gap-3 justify-center bg-[#e9ecee] xs:pt-36 sm:pt-30 flex-grow sm:px-10 md:px-10 lg:px-30 xl:px-50 xxl:px-64 px-10 h-inherit pb-10">
-            <div className='flex flex-col gap-5 w-8/12'>
+            <div className='xs:hidden lg:flex flex-col gap-5 lg:w-7/12 xl:w-8/12'>
               <div className='p-8 bg-white'>
                 <h2 className='font-semibold'>Account</h2>
                 <p className='text-gray-dark'>To place your order now, log in to your existing account or sign up.</p>
@@ -40,7 +40,7 @@ const Cart = () => {
               </div>
             </div>
             
-            <div className='px-10 py-5 bg-white w-3/12'>
+            <div className='px-10 py-5 bg-white xs:w-full md:w-3/5 xxl:w-3/12'>
             {
               cartData && cartData.map((item:IFoodDetailsData, indx: number) => {
                 return(
@@ -56,8 +56,6 @@ const Cart = () => {
                 )
               })
             }
-            <span>Bill Details</span>
-            {/* <div>{totalItemValue}</div> */}
             </div>
           </div>
       }
