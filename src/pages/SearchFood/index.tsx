@@ -3,10 +3,12 @@ import { data } from "../../data/foodSchema";
 import { fetchSearchByLetter, fetchSearchByName } from "../../services/services";
 import { useEffect, useState } from "react";
 import { ISearchData } from "../../Interface/Interface";
+import { useNavigate } from "react-router-dom";
 
 const SearchFood = () => {
   const [searchData , setSearchData] = useState([]);
   const [letter , setLetter] = useState<string>("")
+  const navigate = useNavigate();
 
   const fetchDataByLetter = async(letter:string) =>{
     try {
@@ -59,7 +61,7 @@ const SearchFood = () => {
           {
             searchData && searchData.map((item:ISearchData, indx: number) => {
               return(
-                <div key={indx} className="flex items-center gap-5 my-10 py-3 cursor-pointer hover:bg-gray">
+                <div key={indx} onClick={()=>navigate("/food-details/" + item.idMeal)} className="flex items-center gap-5 my-10 py-3 cursor-pointer hover:bg-gray">
                   <div className="w-20 rounded">
                     <img className="rounded" src={item.strMealThumb}/>
                   </div>
