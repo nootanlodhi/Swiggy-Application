@@ -71,7 +71,7 @@ const FoodDetails = () => {
                     {item.strMeasure14 && <FilterButtons>{item.strMeasure14}</FilterButtons>}
                     {item.strMeasure15 && <FilterButtons>{item.strMeasure15}</FilterButtons>}
                   </div>
-                  <Link to={item.strYoutube} target='_blank'><h2 className='text-xl font-bold my-2'>Tags</h2></Link>
+                  {item.strTags && item.strTags?.split(",").length > 0 && <h2 className='text-xl font-bold my-2'>Tags</h2>}
                   <div>
                     {
                       item.strTags?.split(",").map((tag,index) => {
