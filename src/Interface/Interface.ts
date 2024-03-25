@@ -9,6 +9,8 @@ export interface IContextProps {
   isLoading?: boolean;
   setFoodData?: (foodData: IAllFood) => void;
   setIsLoading?: (isLoading: boolean) => void;
+  cartData?: IFoodDetailsData[] | undefined;
+  setCartData?: (cartData:IFoodDetailsData) => void;
 }
 
 export type IFoodDetails = {
@@ -37,7 +39,7 @@ export interface ISearchData {
 
 export interface IFoodDetailsData {
   dateModified: string | null;
-  idMeal: string | null;
+  idMeal: string;
   strArea: string | null;
   strCategory: string | null;
   strCreativeCommonsConfirmed: string | null;
@@ -64,7 +66,7 @@ export interface IFoodDetailsData {
   strIngredient19: string | null;
   strIngredient20: string | null;
   strInstructions: string | null;
-  strMeal: string | null;
+  strMeal: string;
   strMealThumb: string;
   strMeasure1: string | null;
   strMeasure2: string | null;

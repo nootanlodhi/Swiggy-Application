@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { fetchFoodDetailsData } from '../../services/services';
-import { IFoodDetailsData } from '../../Interface/Interface';
+import { IContextProps, IFoodDetailsData } from '../../Interface/Interface';
 import FilterButtons from '../../components/FilterButtons';
+import { CreateContext } from '../../App';
 
 const FoodDetails = () => {
   const location = useLocation();
-  const [foodDetails , setFoodDetails] = useState<IFoodDetailsData[]>([])
+  const [foodDetails , setFoodDetails] = useState<IFoodDetailsData[]>([]);
+  const {setCartData} = useContext<IContextProps>(CreateContext)
 
   const fetchFoodDetails = async() =>{
     const id = location.pathname.split("/")[2];
@@ -22,6 +24,11 @@ const FoodDetails = () => {
   useEffect(()=>{
     fetchFoodDetails()
   },[]);
+
+  const handleCart = (item:IFoodDetailsData) =>{
+    // cartData?.push(item)
+    setCartData && setCartData(prev => [...prev, item])
+  }
 
   return (
     <main className="xs:mt-36 sm:mt-30 flex-grow sm:px-10 md:px-10 lg:px-30 xl:px-50 xxl:px-96 px-10 h-inherit mb-10">
@@ -83,7 +90,7 @@ const FoodDetails = () => {
                   </div>
                   <div className='sm:flex mt-3 justify-between w-full'>
                     <Link className='flex justify-between gap-2 items-center text-xl px-5 border border-gray rounded-full hover:bg-orange hover:text-white' to={item.strYoutube} target='_blank'> Play on <img className='w-12 rounded-full' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlxiiJrfJOY6Pds_vU7Qc8gRefJiMWoqW0H4KxbvdQVvFb2RpOIkrxE0fjsq8YUkUvtQE&usqp=CAU'/></Link>
-                    <button className='xs:w-full sm:w-auto bg-white text-xl px-7 py-2 my-2 border border-gray rounded-full hover:bg-orange hover:text-white'>Add to cart</button>
+                    <button onClick={()=>handleCart(item)} className='xs:w-full sm:w-auto bg-white text-xl px-7 py-2 my-2 border border-gray rounded-full hover:bg-orange hover:text-white'>Add to cart</button>
                   </div>
                 </div>
               </div>

@@ -24,7 +24,7 @@ const Navbar = () => {
         <NavLink className="xs:hidden md:flex flex items-center gap-1 hover:text-orange" to='/'>
           <IoIosHelpCircleOutline/><p>Help</p>
         </NavLink>
-        <NavLink className="flex items-center gap-1 hover:text-orange" to='/'>
+        <NavLink className="flex items-center gap-1 hover:text-orange" to='/add-to-cart'>
           <IoCartOutline/><p>Cart</p>
         </NavLink>
         <NavLink className="xs:hidden md:flex flex items-center gap-1 hover:text-orange" to='/'>
