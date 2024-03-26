@@ -33,7 +33,7 @@ const FoodCategory: React.FC = () => {
   return (
     <div className='mt-5 relative'>
       <div className='flex justify-between items-center'>
-        <h2 className="sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl xxl:text-3xl dark:text-white font-bold">What's on your mind?</h2>
+        <h2 className="xs:text-xl sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl xxl:text-3xl dark:text-white font-bold">What's on your mind?</h2>
         <div className='m-0 p-0'>
           <button className='bg-gray m-2 p-2 rounded-full' onClick={() => handleScrollOne(-500)}><IoArrowBackSharp/></button>
           <button className='bg-gray p-2 rounded-full' onClick={() => handleScrollOne(500)}><IoArrowForward/></button>
@@ -46,7 +46,7 @@ const FoodCategory: React.FC = () => {
       </div>
       <div className='w-full h-0.5 bg-gray my-10'></div>
       <div className='flex justify-between items-center'>
-        <h2 className="sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl xxl:text-3xl dark:text-white font-bold">Top restaurant chains in Pune</h2>
+        <h2 className="xs:text-xl sm:text-1xl md:text-1xl lg:text-2xl xl:text-3xl xxl:text-3xl dark:text-white font-bold">Top restaurant chains in Pune</h2>
         <div className='m-0 p-0 xs:w-1/2 sm:w-auto text-right'>
           <button className='bg-gray m-2 p-2 rounded-full' onClick={() => handleScrollTwo(-500)}><IoArrowBackSharp/></button>
           <button className='bg-gray p-2 rounded-full' onClick={() => handleScrollTwo(500)}><IoArrowForward/></button>
