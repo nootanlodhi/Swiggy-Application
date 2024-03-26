@@ -31,7 +31,7 @@ const FoodDetails = () => {
   }
 
   return (
-    <main className="xs:mt-36 sm:mt-30 flex-grow sm:px-10 md:px-10 lg:px-30 xl:px-50 xxl:px-96 px-10 h-inherit mb-10">
+    <main className="xs:mt-20 sm:mt-30 flex-grow sm:px-10 md:px-10 lg:px-30 xl:px-50 xxl:px-96 px-10 h-inherit mb-10">
       {
         foodDetails.map((item,index) => {
           return(
