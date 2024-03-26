@@ -8,7 +8,7 @@ import { CreateContext } from '../../App';
 const FoodDetails = () => {
   const location = useLocation();
   const [foodDetails , setFoodDetails] = useState<IFoodDetailsData[]>([]);
-  const {setCartData} = useContext<IContextProps>(CreateContext)
+  const {setCartData, cartData} = useContext<IContextProps>(CreateContext)
 
   const fetchFoodDetails = async() =>{
     const id = location.pathname.split("/")[2];
@@ -27,7 +27,9 @@ const FoodDetails = () => {
 
   const handleCart = (item:IFoodDetailsData) =>{
     // cartData?.push(item)
-    setCartData && setCartData(prev => [...prev, item])
+    if(cartData){
+      setCartData && setCartData([...cartData, item]);
+    }
   }
 
   return (

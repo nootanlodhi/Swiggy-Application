@@ -98,14 +98,16 @@ const FoodDelivery = () => {
   }
 
   const sortFoodData = (order: 'asc' | 'desc') => {
-    const sortedFoodData = [...foodData].sort((a, b) => {
-      if (order === 'asc') {
-        return a.strMeal.localeCompare(b.strMeal);
-      } else {
-        return b.strMeal.localeCompare(a.strMeal);
-      }
-    });
-    setFoodData && setFoodData(sortedFoodData);
+    if (foodData) {
+      const sortedFoodData = [...(foodData ?? [])].sort((a, b) => {
+        if (order === 'asc') {
+          return a.strMeal.localeCompare(b.strMeal);
+        } else {
+          return b.strMeal.localeCompare(a.strMeal);
+        }
+      });
+      setFoodData && setFoodData(sortedFoodData);
+    }
   }
 
   const toggleSortOrder = () => {

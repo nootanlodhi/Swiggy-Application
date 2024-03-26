@@ -7,10 +7,10 @@ export interface IAllFood {
 export interface IContextProps {
   foodData?: IAllFood[];
   isLoading?: boolean;
-  setFoodData?: (foodData: IAllFood) => void;
+  setFoodData?: (foodData: IAllFood[]) => void;
   setIsLoading?: (isLoading: boolean) => void;
-  cartData?: IFoodDetailsData[] | undefined;
-  setCartData?: (cartData:IFoodDetailsData) => void;
+  cartData?: IFoodDetailsData[];
+  setCartData?: (cartData:IFoodDetailsData[]) => void;
   openModal?: boolean;
   setOpenModal?: (openModal:boolean) => void;
 }
