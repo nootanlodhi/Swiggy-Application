@@ -11,6 +11,8 @@ export interface IContextProps {
   setIsLoading?: (isLoading: boolean) => void;
   cartData?: IFoodDetailsData[] | undefined;
   setCartData?: (cartData:IFoodDetailsData) => void;
+  openModal?: boolean;
+  setOpenModal?: (openModal:boolean) => void;
 }
 
 export type IFoodDetails = {

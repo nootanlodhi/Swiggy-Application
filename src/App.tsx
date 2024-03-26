@@ -15,10 +15,11 @@ export const CreateContext = createContext({});
 function App() {
   const [foodData , setFoodData] = useState<IAllFood[]>([]);
   const [isLoading , setIsLoading] = useState<boolean>(true);
-  const [cartData , setCartData] = useState<IFoodDetailsData[]>([])
+  const [cartData , setCartData] = useState<IFoodDetailsData[]>([]);
+  const [openModal , setOpenModal] = useState<boolean>(false);
   // const cartData: IFoodDetailsData[] = []
   return (
-    <CreateContext.Provider value={{foodData, setFoodData, isLoading , setIsLoading, cartData, setCartData }}>
+    <CreateContext.Provider value={{foodData, setFoodData, isLoading , setIsLoading, cartData, setCartData, openModal, setOpenModal }}>
       <BrowserRouter>
         <Navbar/>
         <Routes>
